@@ -12,8 +12,10 @@
     <groupId>io.helidon.examples</groupId>
     <artifactId>helidon-quickstart-mp</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-
+    <properties>
+        <mainClass>io.helidon.examples.quickstart.mp.Main</mainClass>
+        <main.basedir>${project.parent.basedir}</main.basedir>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>io.helidon.microprofile.bundles</groupId>
@@ -76,6 +78,27 @@
     </dependencies>
     <build>
         <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-resource-one</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/classes</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/../Helidon-service/target/classes</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
